@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { UserService } from "src/users/users.service";
 import { JwtService } from "@nestjs/jwt";
+import exp from "constants";
 
 export type Session = {
     id: number,
@@ -29,7 +30,7 @@ export class AuthService{
             throw new UnauthorizedException();
         }
 
-        const payload = { sub: user.id, username: user.username };
+        const payload = { userId: user.id, username: user.username, };
 
         return {
             access_token: await this.jwtService.signAsync(payload),
